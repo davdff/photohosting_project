@@ -1,15 +1,20 @@
 const descrArray = ['Сидит важный', 'Это я отдыхаю, сейчас дома уже', 'Что-то', 'Пупупу']
 const messagesArray = ['Все відмінно!', 'Загалом все непогано. Але не всі.', 'Коли ви робите фотографію, добре б прибирати палець із кадру. Зрештою, це просто непрофесійно.', 'Моя бабуся випадково чхнула з фотоапаратом у руках і у неї вийшла фотографія краща.', 'Я послизнувся на банановій шкірці і впустив фотоапарат на кота і у мене вийшла фотографія краще.', 'Обличчя людей на фотці перекошені, ніби їх побивають. Як можна було зловити такий невдалий момент?']
 const namesArray = ['Алексей', 'Елена', 'Иван', 'Мария', 'Николай', 'Ольга', 'Петр', 'София', 'Андрей', 'Анна']
+const userPhotosCount = 25;
+const userComentsCount = 5;
+
+
+
 function generateId(countId) {
     return parseFloat(countId + 1)
 }
 
 function generatePhoto(countPhoto) {
-    return `./photos/${countPhoto + 1}`
+    return `./photos/${countPhoto + 1}.jpg`
 }
 
-function generateDescrAndMessage(arr) {
+function getRandomElementFromArray(arr) {
     const rand = Math.floor(Math.random() * arr.length);
     return arr[rand]
 }
@@ -40,29 +45,28 @@ function generateAvatar() {
     return `img/avatar-${randomNum}.svg`
 }
 
-
-
-
 function createComment() {
     return {
         id: createCommentId(),
         avatar: generateAvatar(),
-        message: generateDescrAndMessage(messagesArray),
-        name: generateDescrAndMessage(namesArray)
+        message: getRandomElementFromArray(messagesArray),
+        name: getRandomElementFromArray(namesArray)
     }
 }
-const commentsArray = new Array(5).fill(null).map((el, i) => createComment())
+const comments = new Array(userComentsCount).fill(null).map((el, i) => createComment())
 
 
-function getObject(i) {
+function createObject(i) {
     return {
         id: generateId(i),
         url: generatePhoto(i),
-        description: generateDescrAndMessage(descrArray),
+        description: getRandomElementFromArray(descrArray),
         likes: generateLikes(),
-        comments: commentsArray
+        comments: comments
 
     }
 }
-const objectArray = new Array(25).fill(null).map((el, i) => getObject(i))
+const photos = new Array(userPhotosCount).fill(null).map((_, i) => createObject(i));
+
+export { photos };
 
