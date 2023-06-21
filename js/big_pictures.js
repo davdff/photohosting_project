@@ -28,10 +28,13 @@ function openPhoto(e) {
     const commentsCount = bigPictureSection.querySelector('.comments-count')
     const bigPictureDescr = bigPictureSection.querySelector('.social__caption')
     const commentsBlock = bigPictureSection.querySelector('.social__comment-count')
-
-    bigPictureSection.classList.remove('hidden')
-    body.classList.add("modal-open");
-    commentsBlock.classList.add("hidden");
+    if (isNaN(id)) {
+        return;
+    } else {
+        bigPictureSection.classList.remove('hidden')
+        body.classList.add("modal-open");
+        commentsBlock.classList.add("hidden");
+    }
 
     bigPictureImg.src = photoInfo.url;
     bigPictureImg.alt = photoInfo.description;
@@ -62,5 +65,3 @@ function rendCommentsBlock(photoInfo) {
     });
     listOfComment.appendChild(documentFragment);
 }
-
-
