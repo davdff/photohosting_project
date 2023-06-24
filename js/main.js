@@ -2,9 +2,13 @@ const descrArray = ['Сидит важный', 'Это я отдыхаю, сей
 const messagesArray = ['Все відмінно!', 'Загалом все непогано. Але не всі.', 'Коли ви робите фотографію, добре б прибирати палець із кадру. Зрештою, це просто непрофесійно.', 'Моя бабуся випадково чхнула з фотоапаратом у руках і у неї вийшла фотографія краща.', 'Я послизнувся на банановій шкірці і впустив фотоапарат на кота і у мене вийшла фотографія краще.', 'Обличчя людей на фотці перекошені, ніби їх побивають. Як можна було зловити такий невдалий момент?']
 const namesArray = ['Алексей', 'Елена', 'Иван', 'Мария', 'Николай', 'Ольга', 'Петр', 'София', 'Андрей', 'Анна']
 const userPhotosCount = 25;
-const userComentsCount = 5;
-
-
+const commentsCount = {
+    min: 5,
+    max: 15
+};
+function generateCountOfComments(min, max) {
+    return parseFloat(Math.floor((Math.random() * (max - min + 1)) + min).toFixed(0))
+}
 
 function generateId(countId) {
     return parseFloat(countId + 1)
@@ -53,20 +57,19 @@ function createComment() {
         name: getRandomElementFromArray(namesArray)
     }
 }
-const comments = new Array(userComentsCount).fill(null).map((el, i) => createComment())
-
 
 function createObject(i) {
+    const comments = new Array(generateCountOfComments(commentsCount.min, commentsCount.max)).fill(null).map((el, i) => createComment());
+
     return {
         id: generateId(i),
         url: generatePhoto(i),
         description: getRandomElementFromArray(descrArray),
         likes: generateLikes(),
         comments: comments
-
     }
 }
 const photos = new Array(userPhotosCount).fill(null).map((_, i) => createObject(i));
 
-export { photos };
+export { photos }
 
