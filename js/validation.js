@@ -7,7 +7,7 @@ const validityMessage = {
     maxLengthOfHashtag: 'Длина хештега не должна быть более 20 символов',
     onlyNumOrLetters: 'Введите только цифры или буквы',
     firstSymbolofHashtag: 'Первым символом Хештега должна быть #',
-    notOnlyLettice: 'Хештег не может состоять только из #'
+    notOnlyLattice: 'Хештег не может состоять только из #'
 }
 
 hashtagInput.addEventListener('input', (evt) => {
@@ -40,7 +40,7 @@ hashtagInput.addEventListener('input', (evt) => {
                 hashtagInput.reportValidity();
                 break
             case hashtag === "#":
-                hashtagInput.setCustomValidity(validityMessage.notOnlyLettice);
+                hashtagInput.setCustomValidity(validityMessage.notOnlyLattice);
                 hashtagInput.reportValidity();
                 break;
             default:
