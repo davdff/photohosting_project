@@ -6,6 +6,8 @@ const commentsCount = {
     min: 5,
     max: 15
 };
+
+
 function generateCountOfComments(min, max) {
     return parseFloat(Math.floor((Math.random() * (max - min + 1)) + min).toFixed(0))
 }

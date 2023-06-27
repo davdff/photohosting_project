@@ -3,21 +3,37 @@ import { photos } from './main.js'
 const bigPictureSection = document.querySelector('.big-picture')
 const body = document.querySelector('body')
 const picturesBlock = document.querySelector('.pictures')
+const form = document.querySelector(".img-upload__form");
+const commentInput = form.querySelector(".text__description");
+const hashtagInput = form.querySelector(".text__hashtags");
+const uploadPhotoOverlay = document.querySelector('.img-upload__overlay');
+const uploadPhotoInput = document.getElementById('upload-file');
 
+[bigPictureSection, uploadPhotoOverlay].forEach((el) => {
+    el.addEventListener("click", closePhoto);
+});
 picturesBlock.addEventListener('click', openPhoto);
 
-
-bigPictureSection.addEventListener("click", (e) => {
-    closePhoto(e);
-});
+uploadPhotoInput.onchange = uploadPhoto;
 
 document.addEventListener("keydown", closePhoto);
 
+
 function closePhoto(e) {
-    if (e.key === `Escape` || e.target.type === "reset") {
+    if ((e.key === `Escape` && document.activeElement === commentInput) ||
+        (e.key === `Escape` && document.activeElement === hashtagInput)) {
+        e.preventDefault()
+    } else if (e.key === `Escape` || e.target.type === "reset") {
         bigPictureSection.classList.add("hidden");
+        uploadPhotoOverlay.classList.add("hidden");
         body.classList.remove("modal-open");
+        resetInput()
     }
+}
+
+function uploadPhoto() {
+    uploadPhotoOverlay.classList.remove('hidden')
+    body.classList.add("modal-open");
 }
 
 function openPhoto(e) {
@@ -41,7 +57,6 @@ function openPhoto(e) {
     bigPictureDescr.textContent = photoInfo.description
     bigPictureCountLikes.textContent = photoInfo.likes
     commentsCount.textContent = photoInfo.comments.length
-    console.log(photoInfo.comments.length)
     rendCommentsBlock(photoInfo)
 
 }
@@ -64,4 +79,8 @@ function rendCommentsBlock(photoInfo) {
         documentFragment.appendChild(comment);
     });
     listOfComment.appendChild(documentFragment);
+}
+
+function resetInput() {
+    uploadPhotoInput.value = ''
 }
