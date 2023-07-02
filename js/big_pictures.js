@@ -1,4 +1,4 @@
-import { photos } from './main.js'
+import { userPhotos } from './main.js'
 
 const bigPictureSection = document.querySelector('.big-picture')
 const body = document.querySelector('body')
@@ -38,7 +38,7 @@ function uploadPhoto() {
 
 function openPhoto(e) {
     const id = +e.target.dataset.id
-    const photoInfo = photos.find((e) => e.id === id);
+    const photoInfo = userPhotos.find((e) => e.id === id);
     const bigPictureImg = bigPictureSection.querySelector('img')
     const bigPictureCountLikes = bigPictureSection.querySelector('.likes-count')
     const commentsCount = bigPictureSection.querySelector('.comments-count')

@@ -1,9 +1,9 @@
-import { photos } from './main.js'
+import { userPhotos } from './main.js'
 const picturesBlock = document.querySelector('.pictures')
 const picturesTemplate = document.querySelector('#picture')
 const documentFragment = document.createDocumentFragment()
 
-photos.forEach((photo) => {
+userPhotos.forEach((photo) => {
     const pictureClone = picturesTemplate.content.cloneNode(true)
     const image = pictureClone.querySelector('.picture__img');
     const likes = pictureClone.querySelector('.picture__likes');
