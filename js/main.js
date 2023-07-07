@@ -16,6 +16,5 @@ for (let i = 0; i < userPhotos.length; i++) {
     userPhotos[i].comments = userComments;
 }
 
-console.log(userPhotos)
 export { userPhotos }
 export { userComments } 
