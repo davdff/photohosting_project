@@ -3,7 +3,10 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <link rel="stylesheet" href="nouislider/nouislider.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.7.1/nouislider.min.css"
+    />
     <link rel="stylesheet" href="css/normalize.css" />
     <link rel="stylesheet" href="css/style.css" />
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
@@ -87,6 +90,7 @@
                       <button
                         type="button"
                         class="scale__control scale__control--smaller"
+                        id="smaller"
                       >
                         Зменшити
                       </button>
@@ -101,6 +105,7 @@
                       <button
                         type="button"
                         class="scale__control scale__control--bigger"
+                        id="bigger"
                       >
                         Збільшити
                       </button>
@@ -434,10 +439,11 @@
     </template>
 
     <!-- Підключення js-->
-    <script type="module" src="./nouislider/nouislider.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.7.1/nouislider.min.js"></script>
     <script type="module" src="./js/main.js"></script>
     <script type="module" src="./js/pictures.js"></script>
     <script type="module" src="./js/big_pictures.js"></script>
+    <script type="module" src="./js/slider.js"></script>
     <script type="module" src="./js/validation.js"></script>
   </body>
 </html>

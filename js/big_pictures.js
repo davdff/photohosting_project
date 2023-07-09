@@ -1,5 +1,7 @@
 import { userPhotos } from './main.js'
 import { userComments } from './main.js'
+import { photoEffects } from './slider.js'
+import { createSlider } from './slider.js'
 
 const bigPictureSection = document.querySelector('.big-picture')
 const body = document.querySelector('body')
@@ -9,6 +11,8 @@ const commentInput = form.querySelector(".text__description");
 const hashtagInput = form.querySelector(".text__hashtags");
 const uploadPhotoOverlay = document.querySelector('.img-upload__overlay');
 const uploadPhotoInput = document.getElementById('upload-file');
+const imageContainer = document.querySelector(".img-upload__preview");
+const uploadedImage = imageContainer.querySelector("img");
 
 [bigPictureSection, uploadPhotoOverlay].forEach((el) => {
     el.addEventListener("click", closePhoto);
@@ -44,6 +48,11 @@ function closePhoto(e) {
 function uploadPhoto() {
     uploadPhotoOverlay.classList.remove('hidden')
     body.classList.add("modal-open");
+    createSlider("remove")
+    uploadedImage.className = "";
+    uploadedImage.style.filter = ``;
+    uploadedImage.style.transform = `scale(1)`;
+    photoEffects()
 }
 
 function openPhoto(e) {
