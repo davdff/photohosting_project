@@ -1,4 +1,6 @@
-const hashtagInput = document.querySelector(".text__hashtags");
+import { successMessage, errorMessage } from "./requestMessages.js";
+const uploadForm = document.querySelector('.img-upload__form')
+const hashtagInput = uploadForm.querySelector(".text__hashtags");
 const maxQuantityOfHashtags = 5;
 const maxQuantitySymbInHashtag = 20;
 const validityMessage = {
@@ -50,3 +52,27 @@ hashtagInput.addEventListener('input', (evt) => {
         }
     })
 })
+
+const uploadFile = (file) => {
+    const formData = new FormData();
+    formData.append("file", file);
+
+    fetch("http://localhost:4001/upload", {
+        method: 'POST',
+        body: formData,
+    })
+        .then(response => {
+            if (response.ok) {
+                successMessage();
+                return response.text();
+            } else {
+                errorMessage();
+                throw new Error("Request failed with status: " + response.status);
+            }
+        })
+}
+
+uploadForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    uploadFile()
+});

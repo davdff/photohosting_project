@@ -1,23 +1,13 @@
-import { userPhotos } from './main.js'
-import { userComments } from './main.js'
-import { photoEffects } from './slider.js'
-import { createSlider } from './slider.js'
+import { userPhotos, userComments } from './main.js'
+import { showUploadPhoto, uploadImage } from './openUploadPhoto.js'
+import { closePhoto } from './closePhoto.js'
 
 const bigPictureSection = document.querySelector('.big-picture')
 const body = document.querySelector('body')
 const picturesBlock = document.querySelector('.pictures')
-const form = document.querySelector(".img-upload__form");
-const commentInput = form.querySelector(".text__description");
-const hashtagInput = form.querySelector(".text__hashtags");
 const uploadPhotoOverlay = document.querySelector('.img-upload__overlay');
-const uploadPhotoInput = document.getElementById('upload-file');
-const imageContainer = document.querySelector(".img-upload__preview");
-const uploadedImage = imageContainer.querySelector("img");
-
-[bigPictureSection, uploadPhotoOverlay].forEach((el) => {
-    el.addEventListener("click", closePhoto);
-});
-
+const uploadButton = document.getElementById('upload-file');
+const uploadInput = document.querySelector(".img-upload__input");
 const listOfComment = bigPictureSection.querySelector(".social__comments");
 const commentsLoadBtn = document.querySelector(".social__comments-loader");
 const commentsShown = document.querySelector(".comments-shown");
@@ -25,35 +15,14 @@ const commentsCountSection = bigPictureSection.querySelector('.comments-count')
 const commentsCountBlock = document.querySelector(".social__comment-count");
 const maxShownComments = 5;
 
-
-picturesBlock.addEventListener('click', openPhoto);
-
-uploadPhotoInput.onchange = uploadPhoto;
-
+[bigPictureSection, uploadPhotoOverlay].forEach((el) => {
+    el.addEventListener("click", closePhoto);
+});
 document.addEventListener("keydown", closePhoto);
 
-
-function closePhoto(e) {
-    if ((e.key === `Escape` && document.activeElement === commentInput) ||
-        (e.key === `Escape` && document.activeElement === hashtagInput)) {
-        e.preventDefault()
-    } else if (e.key === `Escape` || e.target.type === "reset") {
-        bigPictureSection.classList.add("hidden");
-        uploadPhotoOverlay.classList.add("hidden");
-        body.classList.remove("modal-open");
-        resetInput()
-    }
-}
-
-function uploadPhoto() {
-    uploadPhotoOverlay.classList.remove('hidden')
-    body.classList.add("modal-open");
-    createSlider("remove")
-    uploadedImage.className = "";
-    uploadedImage.style.filter = ``;
-    uploadedImage.style.transform = `scale(1)`;
-    photoEffects()
-}
+uploadInput.addEventListener('change', uploadImage)
+picturesBlock.addEventListener('click', openPhoto);
+uploadButton.addEventListener('change', showUploadPhoto);
 
 function openPhoto(e) {
     const id = +e.target.dataset.id
@@ -61,16 +30,13 @@ function openPhoto(e) {
     const photoInfo = userPhotos.find((e) => e.id === id);
     const bigPictureImg = bigPictureSection.querySelector('img')
     const bigPictureCountLikes = bigPictureSection.querySelector('.likes-count')
-
     const bigPictureDescr = bigPictureSection.querySelector('.social__caption')
-
     if (isNaN(id)) {
         return;
     } else {
         bigPictureSection.classList.remove('hidden')
         body.classList.add("modal-open");
     }
-
     bigPictureImg.src = photoInfo.url;
     bigPictureImg.alt = photoInfo.description;
     bigPictureDescr.textContent = photoInfo.description
@@ -117,9 +83,7 @@ function loadRemainingComments(remainingComments, commentsCount) {
         commentsLoadBtn.classList.remove('hidden')
         rendComment(commentsToLoad)
         commentsShown.textContent = listOfComment.children.length
-
     }
-
 }
 
 function rendComment(array) {
@@ -140,8 +104,3 @@ function rendComment(array) {
     listOfComment.appendChild(documentFragment);
 }
 
-
-
-function resetInput() {
-    uploadPhotoInput.value = ''
-}
